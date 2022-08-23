@@ -44,7 +44,7 @@
                 plugins: [
                     artplayerPluginDanmuku({
                         // danmuku: "https://danmu.ddindexs.com/Xml/{!! str_replace(".mp4",".xml",$file['name']) !!}",
-                        danmuku: "{{ str_replace(".flv.mp4",".new.xml",shorten_url(route('drive.query', ['hashv' => $hash, 'query' => url_encode(implode('/', $path)),'download' => 1])) )}}",
+                        danmuku: '{{ str_replace(".flv.mp4",".new.xml", $file['name']) }}?download=1',
                         speed: 10, // 弹幕持续时间，单位秒，范围在[1 ~ 10]
                         opacity: 0.75, // 弹幕透明度，范围在[0 ~ 1]
                         fontSize: 25, // 字体大小，支持数字和百分比
