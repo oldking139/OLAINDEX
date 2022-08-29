@@ -120,23 +120,19 @@
             // 防止出现401 token过期
             art.on('error', function () {
                 console.log('获取资源错误，开始重新加载！');
-                let last = art.currentTime;
-                art.url = "{!! $file['download'] !!}";
-                art.load();
-                art.currentTime = last;
-                art.play();
+                art.switchQuality("{!! $file['download'] !!}", "{!! $file['name'] !!}");
+                console.info("视频URL=" + art.url);
             });
+
+
             // 如果是播放状态 & 没有播放完 每25分钟重载视频防止卡死
             setInterval(function () {
-                if (!art.video.paused && !art.video.ended) {
+                if (art.playing) {
                     console.log('开始重新加载！');
-                    let last = art.currentTime;
-                    art.url = "{!! $file['download'] !!}";
-                    art.load();
-                    art.currentTime = last;
-                    art.play();
+                    art.switchQuality("{!! $file['download'] !!}", "{!! $file['name'] !!}");
+                    console.info("视频URL=" + art.url);
                 }
-            }, 1000 * 60 * 25)
+            }, 1000 * 60)
 
             // fetch('https://file.ddindexs.com/Pbf/{!! str_replace(".mp4",".pbf",$file['name']) !!}')
             //     .then(response => response.text())
