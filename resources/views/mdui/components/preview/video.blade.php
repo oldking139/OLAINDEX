@@ -120,19 +120,41 @@
             // 防止出现401 token过期
             art.on('error', function () {
                 console.log('获取资源错误，开始重新加载！');
-                art.switchQuality("{!! $file['download'] !!}", "{!! $file['name'] !!}");
-                console.info("视频URL=" + art.url);
+                let xhr = new XMLHttpRequest();
+
+                xhr.open('GET', window.location.href + '&json=true', true);
+                xhr.send();
+
+                xhr.onreadystatechange = function (e) {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        let resp = JSON.parse(xhr.responseText);
+                        art.switchQuality(resp.data.download, "{!! $file['name'] !!}");
+                        console.info("视频URL=" + art.url);
+                    }
+                }
             });
 
 
-            // 如果是播放状态 & 没有播放完 每25分钟重载视频防止卡死
+            // 如果是播放状态 & 没有播放完 每35分钟重载视频防止卡死
             setInterval(function () {
                 if (art.playing) {
                     console.log('开始重新加载！');
-                    art.switchQuality("{!! $file['download'] !!}", "{!! $file['name'] !!}");
-                    console.info("视频URL=" + art.url);
+                    let xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', window.location.href + '&json=true', true);
+                    xhr.send();
+
+                    xhr.onreadystatechange = function (e) {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                            let resp = JSON.parse(xhr.responseText);
+                            art.switchQuality(resp.data.download, "{!! $file['name'] !!}");
+                            console.info("视频URL=" + art.url);
+                        }
+                    }
                 }
-            }, 1000 * 60)
+            }, 1000 * 60 * 35)
 
             // fetch('https://file.ddindexs.com/Pbf/{!! str_replace(".mp4",".pbf",$file['name']) !!}')
             //     .then(response => response.text())

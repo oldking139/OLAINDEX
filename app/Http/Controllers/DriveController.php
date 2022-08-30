@@ -228,6 +228,13 @@ class DriveController extends BaseController
                 }
             }
 
+            // 提供json返回 download 以便前端刷新 video 资源
+            if ($request->get('json', 'false') === 'true') {
+                return $this->buildResponse([
+                    'download'=>$file['download']
+                ]);
+            }
+
             return view(setting('main_theme', 'default') . '.preview' . $view, compact('accounts', 'hash', 'path', 'show', 'file', 'need_pass'));
         }
 
