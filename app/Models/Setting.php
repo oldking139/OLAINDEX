@@ -58,7 +58,7 @@ class Setting extends Model
         'stats_code' => '',
         'access_token' => '',
         'show_image' => 'png',
-        'show_video' => 'mp4',
+        'show_video' => 'mp4 flv',
         'show_dash' => 'avi',
         'show_audio' => 'mp3',
         'show_doc' => 'doc',

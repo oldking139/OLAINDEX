@@ -21,6 +21,7 @@
 @endpush
 
 @push('scripts')
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/flv.js/1.6.2/flv.min.js"></script
     <script src="https://unpkg.com/artplayer/dist/artplayer.js"></script>
     <script src="https://unpkg.com/artplayer-plugin-danmuku/dist/artplayer-plugin-danmuku.js"></script>
     <script>
@@ -66,6 +67,23 @@
                         // mount: document.querySelector('.artplayer-danmuku'),
                     }),
                 ],
+                @if ($file['ext'] === 'flv')
+                type: '{{ $file['ext'] }}',
+                customType: {
+                    flv: function (video, url) {
+                        if (flvjs.isSupported()) {
+                            const flvPlayer = flvjs.createPlayer({
+                                type: 'flv',
+                                url: url,
+                            });
+                            flvPlayer.attachMediaElement(video);
+                            flvPlayer.load();
+                        } else {
+                            art.notice.show = '不支持播放格式：flv';
+                        }
+                    },
+                }
+                @endif
             });
             // 监听准备完成
             art.on('ready', () => {
