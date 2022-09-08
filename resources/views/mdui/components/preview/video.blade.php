@@ -21,7 +21,7 @@
 @endpush
 
 @push('scripts')
-    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/flv.js/1.6.2/flv.min.js"></script
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/flv.js/1.6.2/flv.min.js"></script>
     <script src="https://unpkg.com/artplayer/dist/artplayer.js"></script>
     <script src="https://unpkg.com/artplayer-plugin-danmuku/dist/artplayer-plugin-danmuku.js"></script>
     <script>
